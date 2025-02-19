@@ -1,0 +1,91 @@
+
+    <%- include('partials/header.ejs') %>
+    <div class="album py-5 bg-body-tertiary">
+        <div class="container">
+          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <% if (locals.books) {%>
+            <%  books.forEach(book=> {  console.log(book.coverurl)%>
+                <div class="col">
+                    <div class="card shadow-sm">
+                      <img  width="100%" height="225" src="<%= book.coverurl %>" id="book<%= book.id %>cover" >
+                      <div class="card-body">
+                        <h2 style="text-align: center;" id="book<%= book.id %>title"><%= book.title %></h2>
+                        <input type="text" name="bookid" placeholder="Enter book ISBN" required id="book<%= book.id %>isbnEdit" hidden>
+                        <input type="text" name="bookTitle" placeholder="Enter book title" required id="book<%= book.id %>titleEdit" hidden>
+                        <input type="textarea" name="bookDescription" placeholder="Enter book description" id="book<%= book.id %>descriptionEdit" hidden>
+                        <input type="date" name="readTime" placeholder="Enter book readTime" id="book<%= book.id %>dateEdit" hidden>
+                        <input type="number" max="5" min="0" name="rating" placeholder="Enter book rating" id="book<%= book.id %>ratingEdit" hidden>
+                        <p class="card-text" id="book<%= book.id %>description"><%= book.description %></p>
+                        <div class="d-flex justify-content-between align-items-center">
+                          <div class="btn-group">
+                            <form action="/view" method="post">
+                                <button type="submit" name='book' value="<%= book.id %>" class="btn btn-sm btn-outline-secondary" id="book<%= book.id %>viewbtn" onclick="">View</button>
+                            </form>
+                            <form action="/edit" method="post">
+                            <button type="button" class="btn btn-sm btn-outline-secondary" id="book<%= book.id %>editbtn" onclick="editHandler('<%= book.id %>')">Edit</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary" id="book<%= book.id %>canclebtn" onclick="editHandler('<%= book.id %>')" hidden>Cancle</button>
+                            <button type="submit" name='book' value="<%= book.id %>" class="btn btn-sm btn-outline-secondary" id="book<%=book.id %>Edit" hidden>Edit</button>
+                            </form>
+                          </form>
+                          <form action="/delete" method="post">
+                            <button type="submit" name='book' value="<%= book.id %>" class="btn btn-sm btn-outline-secondary" id="book<%=book.id %>delete" >Delete</button>
+                          </form>
+                          </div>
+                          <small class="text-body-secondary" id="book<%= book.id %>date"><%= book.time %></small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                
+           <% })} %>
+
+           <div class="col " id="addbook" hidden="true">
+            <div class="card shadow-sm">
+              <div class="card-body">
+                <form action="/addbook" method="post">
+                <input type="text" name="bookid" placeholder="Enter book ISBN" required>
+                <input type="text" name="bookTitle" placeholder="Enter book title" required>
+                <input type="textarea" name="bookDescription" placeholder="Enter book description">
+                <input type="date" name="readTime" placeholder="Enter book readTime">
+                <input type="number" max="5" min="0" name="rating" placeholder="Enter book rating">
+                <div class="d-flex justify-content-between align-items-center">
+                  <div class="btn-group">
+                        <button type="submit" name='book' class="btn btn-sm btn-outline-secondary">Add</button>
+                  </div>
+                </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          </div>
+          <div class="row cols-6 " style="justify-content: end;">
+          <button type="button" class="btn btn-primary addbookbtn " onclick="handler()">Add New Book</button>
+        </div>
+        </div>
+    </div>
+    <script>
+      function handler()
+      {
+        document.getElementById('addbook').toggleAttribute('hidden');
+      }
+      function editHandler(id)
+      {
+        document.getElementById("book"+id+"cover").toggleAttribute('hidden');
+        document.getElementById("book"+id+"title").toggleAttribute('hidden');
+        document.getElementById("book"+id+"description").toggleAttribute('hidden');
+        document.getElementById("book"+id+"date").toggleAttribute('hidden');
+        document.getElementById("book"+id+"viewbtn").toggleAttribute('hidden');
+        document.getElementById("book"+id+"editbtn").toggleAttribute('hidden');
+        document.getElementById("book"+id+"delete").toggleAttribute('hidden');
+
+        document.getElementById("book"+id+"isbnEdit").toggleAttribute('hidden');
+        document.getElementById("book"+id+"titleEdit").toggleAttribute('hidden');
+        document.getElementById("book"+id+"descriptionEdit").toggleAttribute('hidden');
+        document.getElementById("book"+id+"dateEdit").toggleAttribute('hidden');
+        document.getElementById("book"+id+"Edit").toggleAttribute('hidden');
+        document.getElementById("book"+id+"canclebtn").toggleAttribute('hidden');
+
+      }
+    </script>
+    <%- include('partials/footer.ejs') %>

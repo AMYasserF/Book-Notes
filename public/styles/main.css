@@ -1,0 +1,20 @@
+input{
+    margin: 5px;
+    width: 80%;
+}
+input[type='textarea']{
+    height: 140px;
+}
+.addbookbtn, .addnotebtn{
+    margin: 2rem;
+    padding: 1rem; 
+    width: 20%;
+}
+.notebody
+{
+    min-height: 134px;
+}
+.note
+{
+    margin: 1rem;
+}

@@ -1,0 +1,70 @@
+
+<%- include('partials/header.ejs') %>
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+        <% if (locals.notes) {%>
+        <%  notes.forEach(note=> {  %>
+            <div class="col note">
+                <div class="card shadow-sm">
+                 <div class="card-body">
+                    <p class="card-text notebody" id="note<%= note.id %>content"><%= note.content %></p>
+                    <div class="d-flex justify-content-between align-items-center">
+                      <div class="btn-group">
+                        <form action="/editnote" method="post">
+                          <input type="textarea" name="Editedcontent" placeholder="Write Your Note" id="Note<%= note.id %>" hidden>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="note<%= note.id %>editbtn" onclick="editHandler('<%= note.id %>')">Edit</button>
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="note<%= note.id %>canclebtn" onclick="editHandler('<%= note.id %>')" hidden>Cancle</button>
+                        <button type="submit" name='note' value="<%= note.id %>" class="btn btn-sm btn-outline-secondary" id="note<%=note.id %>Edit" hidden>Edit</button>
+                        </form>
+                      </form>
+                      <form action="/deletenote" method="post">
+                        <button type="submit" name='note' value="<%= note.id %>" class="btn btn-sm btn-outline-secondary" id="note<%=note.id %>delete" >Delete</button>
+                      </form>
+                      </div>
+                     </div>
+                  </div>
+                </div>
+              </div>
+            
+       <% })} %>
+
+       <div class="col " id="addnote" hidden="true">
+        <div class="card shadow-sm">
+          <div class="card-body">
+            <form action="/addnote" method="post">
+          <input type="textarea" name="content" placeholder="Write Your Note" required>
+          <div class="d-flex justify-content-between align-items-center">
+              <div class="btn-group">
+                    <button type="submit" name='note' class="btn btn-sm btn-outline-secondary">Add</button>
+              </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      </div>
+      <div class="row cols-6 " style="justify-content: end;">
+      <button type="button" class="btn btn-primary addnotebtn " onclick="handler()">Add New Note</button>
+    </div>
+    </div>
+</div>
+<script>
+  function handler()
+  {
+    document.getElementById('addnote').toggleAttribute('hidden');
+  }
+  function editHandler(id)
+  {
+    document.getElementById("note"+id+"content").toggleAttribute('hidden');
+    document.getElementById("note"+id+"editbtn").toggleAttribute('hidden');
+    document.getElementById("note"+id+"delete").toggleAttribute('hidden');
+
+    document.getElementById("Note"+id).toggleAttribute('hidden');
+    document.getElementById("note"+id+"Edit").toggleAttribute('hidden');
+    document.getElementById("note"+id+"canclebtn").toggleAttribute('hidden');
+
+  }
+</script>
+<%- include('partials/footer.ejs') %>
