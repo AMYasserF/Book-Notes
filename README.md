@@ -30,7 +30,7 @@ A simple web app to store and manage books you've read. Users can add, edit, del
      DB_HOST=your_host
      DB_USER=your_user
      DB_PASSWORD=your_password
-     DB_NAME=your_database
+     DB_NAME=book_notes
      ```
 
 4. **Run the application**  
